@@ -4,8 +4,6 @@ The behaviour of the EV3 robot is simulated in the simulator. This is convenient
 
 ![cosc343_ev3dev2simulator](img/owheo_foyer.png?raw=true "cosc343_ev3dev2simulator")
 
-![ev3dev2simulator](https://raw.githubusercontent.com/wiki/ev3dev-python-tools/ev3dev2simulator/img/small.PNG "ev3dev2simulator")
-
 You can use the 'ev3dev2' python library to program the EV3. The simulator installs a fake 'ev3dev2' library on the PC. When using this library on the PC, every call to this API is forwarded to the simulator which uses it to simulate the behaviour of the EV3 robot. 
 
 For an example see: https://github.com/ev3dev-python-tools/thonny-ev3dev/wiki/Simulator-example<br>

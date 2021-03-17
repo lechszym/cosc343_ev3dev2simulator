@@ -18,13 +18,21 @@ For more info about Thonny: http://thonny.org
 
 ## Getting started
 
-   Install with pip
+   Clone the repository to your hardrive
    
-      pip install ev3dev2simulator
-     
-   Then you can just run the simulator by running the executable:
+      git clone https://github.com/lechszym/cosc343_ev3dev2simulator.git
+    
+   Then change cd into the new created folder
+
+      cd cosc343_ev3dev2simulator
+
+   Activate the anaconda cosc343 environment
    
-      ev3dev2simulator
+      conda activate cosc343
+
+   Then you can just run the simulator by running the following script (remember, you must be in the root folder of the git repo):
+   
+      python cosc343_a1_simulator.py -t foyer_cosc343.yaml
 
 ## Using the simulator
 

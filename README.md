@@ -32,8 +32,8 @@ For more info about Thonny: http://thonny.org
 
    Then you can just run the simulator by running the following script (remember, you must be in the root folder of the git repo):
    
-      python cosc343_a1_simulator.py -t foyer_cosc343.yaml
+      python cosc343_a1_simulator.py -t owheo_foyer.yaml
 
-## Using the simulator
+## Changing the location of the bottle/target
 
-The user guide of the simulator can be found on the [wiki](https://github.com/ev3dev-python-tools/ev3dev2simulator/wiki).
+Edit the file 'owhoe_foyer.yaml' and change the 'tile' value of the 'target' obstacle.  Values 1 through 12 correspond to the location of the target tiles specified in the assignment script.

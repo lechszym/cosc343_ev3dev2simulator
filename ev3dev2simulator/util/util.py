@@ -39,6 +39,48 @@ def get_circle_points(center_x: float,
     points.append(points[1])
     return points
 
+def get_rectangle_points(center_x: float,
+                        center_y: float,
+                        width: float,
+                        height: float,
+                        num_segments: int = 32) -> PointList:
+    """
+    Determine all the coordinate points located on the outline of a circle of given position and radius.
+    The number of points, which correlates to the smoothness of the outline,
+    is specified by the number of segments.
+
+    :param center_x: the x coordinate of the created circle center.
+    :param center_y: the y coordinate of the created circle center.
+    :param radius: the radius of the created circle.
+    :param num_segments: the number of segments of the circle outline.
+    :return: a PointList object containing the coordinates of the circle points.
+    """
+
+    points = []
+
+    x_left = center_x - width / 2
+    x_right = center_x + width * 2
+    y_bottom = center_y - height / 2
+    y_top = center_y + height / 2
+
+    segs_per_side = num_segments / 4
+
+    for segment in range(segs_per_side):
+        points.append(x_left + segment * width / segs_per_side, y_bottom)
+
+    for segment in range(segs_per_side):
+        points.append(x_right, y_bottom + segment * height / segs_per_side)
+
+    for segment in range(segs_per_side):
+        points.append(x_right - segment * width / segs_per_side, y_top)
+
+    for segment in range(segs_per_side):
+        points.append(x_left, y_top - segment * height / segs_per_side)
+
+    points.append(points[0])
+
+    return points
+
 
 def distance_between_points(x_of_point1: float, y_of_point1: float, x_of_point2: float, y_of_point2: float) -> float:
     """

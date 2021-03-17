@@ -1,0 +1,15 @@
+board_height: 5000
+board_width: 5000
+board_color: 250, 250, 250
+robots:
+  - name: robot0
+    center_x: 1
+    center_y: 7
+    orientation: 0
+    type: 'robot_cosc343.yaml'
+obstacles:
+  - name: 'target'
+    tile: 12
+    radius: 33
+    color: 0, 255, 0
+    type: 'bottle'

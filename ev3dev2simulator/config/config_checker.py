@@ -88,6 +88,7 @@ class ConfigChecker:
                     Optional('movable'): Bool(),
                     Optional('hole'): Bool(),
                     Optional('radius'): Int(),
+                    Optional('tile'): Int(),
                 })
             ),
         })

@@ -16,6 +16,7 @@ from ev3dev2simulator.obstacle.bottle import Bottle
 from ev3dev2simulator.obstacle.edge import Edge
 from ev3dev2simulator.obstacle.lake import Lake
 from ev3dev2simulator.obstacle.rock import Rock
+from ev3dev2simulator.obstacle.tile import Tile
 
 
 class WorldState:
@@ -64,6 +65,10 @@ class WorldState:
             elif obstacle['type'] == 'bottle':
                 bottle = Bottle.from_config(obstacle)
                 self.obstacles.append(bottle)
+            elif obstacle['type'] == 'tile':
+                tile = Tile.from_config(obstacle)
+                self.static_obstacles.append(tile)
+                self.color_obstacles.append(tile)
             else:
                 print("unknown obstacle type")
 

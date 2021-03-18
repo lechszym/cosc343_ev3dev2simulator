@@ -97,6 +97,25 @@ def main(orig_path):
 
         large_tile_size = 3 * small_tile_size
 
+        x = 1
+        x = x * (large_tile_size + grout_size) + large_tile_size / 2
+        start_tile_x = int(x)
+
+        y = 7
+        y = y * (large_tile_size + 2 * grout_size) + (y - 1) * small_tile_size + large_tile_size / 1.2
+        start_tile_y = int(y)
+
+        start_tile = {'name': 'stile1',
+                 'x': int(start_tile_x),
+                 'y': int(start_tile_y),
+                 'width': int(large_tile_size*0.6),
+                 'height': int(large_tile_size*0.8),
+                 'color': black_tile_colour,
+                 'type': 'tile'
+
+                 }
+        config['obstacles'].append(start_tile)
+
         for i in range(len(config['obstacles'])):
             if 'tile' in config['obstacles'][i]:
                 t = config['obstacles'][i]['tile']
@@ -192,6 +211,10 @@ def main(orig_path):
 
                 k += 1
                 config['obstacles'].append(tile)
+
+        start_tile['name'] = 'stile2'
+        config['obstacles'].append(start_tile)
+
 
         x = config['robots'][0]['center_x']
         x = x * (large_tile_size + grout_size) + large_tile_size / 2

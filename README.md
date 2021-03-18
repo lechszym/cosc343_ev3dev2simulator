@@ -1,4 +1,4 @@
-This project is a fork off of https://github.com/ev3dev-python-tools/ev3dev2simulator.
+This project is a fork off of https://github.com/ev3dev-python-tools/ev3dev2simulator with the support for the configuration for the Owheo foyer floor tile pattern and its noisy color sensor readings.
 
 # ev3dev2simulator: simulator for the EV3 (ev3dev2 API)
 

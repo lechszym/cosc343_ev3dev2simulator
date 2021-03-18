@@ -30,9 +30,17 @@ For more info about Thonny: http://thonny.org
    
       conda activate cosc343
 
-   Then you can just run the simulator by running the following script (remember, you must be in the root folder of the git repo):
+   Uninstall previous version of ev3dev2simulator
+
+      pip uninstall ev3dev2simulator
+      
+   Install the new version from the source code
    
-      python cosc343_a1_simulator.py -t owheo_foyer.yaml
+      python setup.py install 
+
+   Then you can run the simulator by running the following script
+   
+      ev3dev2simulator -t owheo_foyer.yaml
 
 ## Changing the location of the bottle/target
 

@@ -83,8 +83,8 @@ def main(orig_path):
 
     grout_colour = (100, 100, 100)
     large_tile_colour = (240, 240, 240)
-    black_tile_colour = (0,0,0)
-    white_tile_colour = (255,255,255)
+    black_tile_colour = (1,1,1)
+    white_tile_colour = (254,254,254)
 
     grout_size = int(grout_size*scale)
     small_tile_size = int(small_tile_size*scale)

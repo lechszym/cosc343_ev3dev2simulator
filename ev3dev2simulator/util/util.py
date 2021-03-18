@@ -141,12 +141,18 @@ def to_color_code(color: _arcade.Color) -> int:
     """
     switcher = {
         (59, 60, 54): 1,  # Black
+        (0, 0, 0): 1, # Black
         (58, 166, 221): 2,  # Blue
         (122, 182, 72): 3,  # Green
         (252, 227, 3): 4,  # Yellow
         (201, 45, 57): 5,  # Red
         (235, 235, 235): 6,  # White
-        (255, 255, 255): 6  # White
+        (255, 255, 255): 6,  # White
+        (240, 240, 240): 8, # Large gray
+        (100, 100, 100): 9, # Grout
+        (1, 1, 1):      10,  # Black tile
+        (254, 254, 254): 11,  # White tile
+
     }
 
     return switcher.get(color, 0)

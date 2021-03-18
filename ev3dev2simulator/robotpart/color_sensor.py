@@ -15,7 +15,11 @@ COLORS[3] = 2
 COLORS[4] = 5
 COLORS[5] = 3
 COLORS[6] = 4
-
+COLORS[7] = 4
+COLORS[8] = 4
+COLORS[9] = 0
+COLORS[10] = 0
+COLORS[11] = 4
 
 class ColorSensor(BodyPart):
     """

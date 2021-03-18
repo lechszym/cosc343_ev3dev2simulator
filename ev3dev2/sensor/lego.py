@@ -29,6 +29,7 @@ from ev3dev2.sensor import Sensor
 from ev3dev2simulator.connector.sensor_connector import SensorConnector
 from ev3dev2simulator.util.util import get_cm_multiplier, get_inch_multiplier
 
+import numpy as np
 
 class TouchSensor(Sensor):
     """
@@ -466,17 +467,72 @@ class ColorSensor(Sensor):
             (255, 255, 0),  # 4: Yellow
             (255, 0, 0),  # 5: Red
             (255, 255, 255),  # 6: White
-            (165, 42, 42)  # 7: Brown
+            (165, 42, 42),  # 7: Brown
+            (240, 240, 240), # 8: Grey
+            (100, 100, 100), # 9: Grout
+            (1,1,1), # 10: Black
+            (254,254,254) #11: White
         ]
 
         if self.mode == self.MODE_COL_COLOR:
-            return self.connector.get_value()
-        elif self.mode == self.MODE_RGB_RAW:
-            return color_to_rgb[self.connector.get_value()][n]
-        elif self.mode == self.MODE_COL_REFLECT:
-            total_light = sum(color_to_rgb[self.connector.get_value()])
-            return total_light / (255 * 3) * 100  # percentage of light
+            cindx = self.connector.get_value()
 
+            if cindx==8:
+                return int(np.random.normal(200,12))
+            if cindx == 9:
+                return int(np.random.normal(92, 4))
+            elif cindx==10:
+                return int(np.random.normal(60,2.5))
+            elif cindx==11:
+                return int(np.random.normal(260,13))
+            else:
+                return cindx
+        elif self.mode == self.MODE_RGB_RAW:
+            cindx = self.connector.get_value()
+            if cindx < 8 or cindx > 11:
+                return color_to_rgb[self.connector.get_value()][n]
+            else:
+                if cindx==8:
+                    means = [142, 217, 126]
+                    stds = [30, 11.7, 6.9]
+                if cindx == 9:
+                    means = [16, 91, 55]
+                    stds = [18, 5, 3]
+                elif cindx==10:
+                    means = [34, 71, 40]
+                    stds = [24, 3, 5.4]
+                elif cindx==11:
+                    means = [163, 253, 154]
+                    stds = [10, 4, 8]
+
+                c = int(np.random.normal(means[n],stds[n]))
+                if c < 0:
+                    c=0
+                elif c>255:
+                    c=255
+                return c
+
+
+
+        elif self.mode == self.MODE_COL_REFLECT:
+            cindx = self.connector.get_value()
+            if cindx < 8 or cindx > 11:
+                total_light = sum(color_to_rgb[cindx])
+                return total_light / (255 * 3) * 100  # percentage of light
+            else:
+                if cindx == 8:
+                    r = int(np.random.normal(43,3))
+                elif cindx == 9:
+                    r = int(np.random.normal(20,1))
+                elif cindx == 10:
+                    r = int(np.random.normal(13,0.6))
+                elif cindx == 11:
+                    r = int(np.random.normal(56,2))
+                if r<0:
+                    r = 0
+                elif r>100:
+                    r= 100
+                return r
         else:
             print(f'Mode {self.mode} not supported')
             return None

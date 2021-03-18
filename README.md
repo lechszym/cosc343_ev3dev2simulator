@@ -1,3 +1,5 @@
+This project is a fork off of https://github.com/ev3dev-python-tools/ev3dev2simulator.
+
 # ev3dev2simulator: simulator for the EV3 (ev3dev2 API)
 
 The behaviour of the EV3 robot is simulated in the simulator. This is convenient to quickly test programs when you momentarily don’t have access to an EV3.

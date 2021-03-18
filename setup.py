@@ -8,11 +8,11 @@ setup(
     long_description="""
 Simulator for an EV3 robot; a program using the ev3dev2 API can run both on the rover and on the simulator without any modifications to the code.
 
-For more info: https://github.com/ev3dev-python-tools/ev3dev2simulator
+For more info: https://github.com/lechszym/cosc343_ev3dev2simulator
 """,
-    url="https://github.com/ev3dev-python-tools/ev3dev2simulator",
-    author="Harco Kuppens, Sam Jansen, Niels Okker",
-    author_email="h.kuppens@cs.ru.nl",
+    url="https://github.com/lechszym/cosc343_ev3dev2simulator",
+    author="Harco Kuppens, Sam Jansen, Niels Okker, Lech Szymanski",
+    author_email="lech.szymanski@otago.ac.nz",
     license="MIT",
     classifiers=[
         "Environment :: MacOS X",
@@ -50,7 +50,12 @@ For more info: https://github.com/ev3dev-python-tools/ev3dev2simulator
     package_data={
         "ev3dev2simulator": [
             "config/*", "config/world_configurations/*", "config/robot_configurations/*", "assets/images/*"
-        ]},
+        ],
+        "cosc343-a1-simulator": [
+            "config/*", "config/world_configurations/*", "config/robot_configurations/*", "assets/images/*"
+        ],
+
+    },
     entry_points={
         'console_scripts': [
             'ev3dev2simulator = ev3dev2simulator.__main__:main',

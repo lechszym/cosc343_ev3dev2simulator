@@ -62,146 +62,149 @@ def main(orig_path):
 
     config = get_world_config()
 
-
-    grout_size = 3
-    small_tile_size = 33
-    large_tile_size = 3 * small_tile_size
-
-    n_large_tiles_horiz = 12
-    n_large_tiles_ver = 9
-
-    tot_width = n_large_tiles_ver*large_tile_size+(n_large_tiles_ver+1)*grout_size
-    tot_height = n_large_tiles_ver*(2*grout_size+large_tile_size)+(n_large_tiles_ver-1)*small_tile_size
-
-    hscale = config['board_width'] / tot_width
-    vscale = config['board_height'] / tot_height
-
-    scale = min(hscale,vscale)
-    if scale < 1:
-      scale = 1
-
-
-    grout_colour = (100, 100, 100)
-    large_tile_colour = (240, 240, 240)
-    black_tile_colour = (1,1,1)
-    white_tile_colour = (254,254,254)
-
-    grout_size = int(grout_size*scale)
-    small_tile_size = int(small_tile_size*scale)
-
-    large_tile_size = 3*small_tile_size
-
+    cosc343tiles = False
     for i in range(len(config['obstacles'])):
-       if 'tile' in config['obstacles'][i]:
-          t = config['obstacles'][i]['tile']
-          x = 8+(t-1)%3
-          y = 1+int((12-t)/3)
-          config['obstacles'][i]['x'] = int(x*(large_tile_size+grout_size)+grout_size+large_tile_size/2)
-          config['obstacles'][i]['y'] = int(y*(large_tile_size+2*grout_size)+(y)*small_tile_size+large_tile_size/2)
-       if 'radius' in config['obstacles'][i]:
-          config['obstacles'][i]['radius'] *= scale
+        if 'type' in config['obstacles'][i] and config['obstacles'][i]['type']=='tiles':
+            del config['obstacles'][i]
+            cosc343tiles = True
+            break
 
-    #Vertical grouts
-    grout_length = n_large_tiles_ver*(large_tile_size+2*grout_size)+(n_large_tiles_ver)*small_tile_size
-    for i in range(n_large_tiles_horiz+1):
-       x = i*(large_tile_size+grout_size)
-       y = 0
+    if cosc343tiles:
+        grout_size = 3
+        small_tile_size = 33
+        large_tile_size = 3 * small_tile_size
 
-       grout = {'name': 'gv%d' % i,
-                'x': int(x + grout_size/2),
-                'y': int(y + grout_length/2),
-                'width': grout_size,
-                'height': grout_length,
-                'color': grout_colour,
-                'type': 'tile'
+        n_large_tiles_horiz = 12
+        n_large_tiles_ver = 9
 
+        tot_width = n_large_tiles_ver*large_tile_size+(n_large_tiles_ver+1)*grout_size
+        tot_height = n_large_tiles_ver*(2*grout_size+large_tile_size)+(n_large_tiles_ver-1)*small_tile_size
 
-       }
-       #x += grout_size/2
-       #y += grout_length/2
-       config['obstacles'].append(grout)
+        hscale = config['board_width'] / tot_width
+        vscale = config['board_height'] / tot_height
 
-    #Horizontal grouts
-    grout_length = n_large_tiles_horiz*large_tile_size+(n_large_tiles_horiz+1)*grout_size
-    y = 0
-    for i in range(2*n_large_tiles_ver):
-       x = 0
-       #y = i*(large_tile_size+grout_size)
-       #y = 0
+        scale = min(hscale,vscale)
+        if scale < 1:
+          scale = 1
 
 
-       grout = {'name': 'gh%d' % i,
-                'x': int(x + grout_length/2),
-                'y': int(y + grout_size/2),
-                'width': grout_length,
-                'height': grout_size,
-                'color': grout_colour,
-                'type': 'tile'
-       }
-       if i%2==0:
-          y += large_tile_size+grout_size
-       else:
-          y += small_tile_size+grout_size
+        grout_colour = (100, 100, 100)
+        large_tile_colour = (240, 240, 240)
+        black_tile_colour = (1,1,1)
+        white_tile_colour = (254,254,254)
 
-       #x += grout_size/2
-       #y += grout_length/2
-       config['obstacles'].append(grout)
+        grout_size = int(grout_size*scale)
+        small_tile_size = int(small_tile_size*scale)
 
-    #Large tiles
-    k = 0
-    for i in range(n_large_tiles_horiz):
-       for j in range(n_large_tiles_ver):
-          x = i*large_tile_size+(i+1)*grout_size
-          y = grout_size+j*large_tile_size+2*j*grout_size+j*small_tile_size
-          tile = {'name': 'lt%d' % k,
-                   'x': int(x + large_tile_size / 2),
-                   'y': int(y + large_tile_size / 2),
-                   'width': large_tile_size,
-                   'height': large_tile_size,
-                   'color': large_tile_colour,
-                   'type': 'tile'
-                   }
+        large_tile_size = 3*small_tile_size
 
-          k += 1
-          config['obstacles'].append(tile)
+        for i in range(len(config['obstacles'])):
+           if 'tile' in config['obstacles'][i]:
+              t = config['obstacles'][i]['tile']
+              x = 8+(t-1)%3
+              y = 1+int((12-t)/3)
+              config['obstacles'][i]['x'] = int(x*(large_tile_size+grout_size)+grout_size+large_tile_size/2)
+              config['obstacles'][i]['y'] = int(y*(large_tile_size+2*grout_size)+(y)*small_tile_size+large_tile_size/2)
+           if 'radius' in config['obstacles'][i]:
+              config['obstacles'][i]['radius'] *= scale
 
-    #Small tiles
-    k = 0
-    for i in range(n_large_tiles_ver):
-       y = (i+1) * large_tile_size + (i + 1) * 2 * grout_size + i*small_tile_size
-       for j in range(n_large_tiles_horiz*3):
-         x = j*small_tile_size+(int(j/3)+1)*grout_size
-         if j%2 == 0:
-            colour = black_tile_colour
-         else:
-            colour = white_tile_colour
+        #Vertical grouts
+        grout_length = n_large_tiles_ver*(large_tile_size+2*grout_size)+(n_large_tiles_ver)*small_tile_size
+        for i in range(n_large_tiles_horiz+1):
+           x = i*(large_tile_size+grout_size)
+           y = 0
 
-         tile = {'name': 'st%d' % k,
-                 'x': int(x + small_tile_size / 2),
-                 'y': int(y + small_tile_size / 2),
-                 'width': small_tile_size,
-                 'height': small_tile_size,
-                 'color': colour,
-                 'type': 'tile'
-                 }
+           grout = {'name': 'gv%d' % i,
+                    'x': int(x + grout_size/2),
+                    'y': int(y + grout_length/2),
+                    'width': grout_size,
+                    'height': grout_length,
+                    'color': grout_colour,
+                    'type': 'tile'
 
-         k += 1
-         config['obstacles'].append(tile)
 
-    x = config['robots'][0]['center_x']
-    x = x*(large_tile_size+grout_size)+large_tile_size/2
-    config['robots'][0]['center_x'] = int(x)
+           }
+           #x += grout_size/2
+           #y += grout_length/2
+           config['obstacles'].append(grout)
 
-    y = config['robots'][0]['center_y']
-    y = y*(large_tile_size+2*grout_size)+(y-1)*small_tile_size+large_tile_size/1.2
-    config['robots'][0]['center_y'] = int(y)
+        #Horizontal grouts
+        grout_length = n_large_tiles_horiz*large_tile_size+(n_large_tiles_horiz+1)*grout_size
+        y = 0
+        for i in range(2*n_large_tiles_ver):
+           x = 0
+           #y = i*(large_tile_size+grout_size)
+           #y = 0
+
+
+           grout = {'name': 'gh%d' % i,
+                    'x': int(x + grout_length/2),
+                    'y': int(y + grout_size/2),
+                    'width': grout_length,
+                    'height': grout_size,
+                    'color': grout_colour,
+                    'type': 'tile'
+           }
+           if i%2==0:
+              y += large_tile_size+grout_size
+           else:
+              y += small_tile_size+grout_size
+
+           #x += grout_size/2
+           #y += grout_length/2
+           config['obstacles'].append(grout)
+
+        #Large tiles
+        k = 0
+        for i in range(n_large_tiles_horiz):
+           for j in range(n_large_tiles_ver):
+              x = i*large_tile_size+(i+1)*grout_size
+              y = grout_size+j*large_tile_size+2*j*grout_size+j*small_tile_size
+              tile = {'name': 'lt%d' % k,
+                       'x': int(x + large_tile_size / 2),
+                       'y': int(y + large_tile_size / 2),
+                       'width': large_tile_size,
+                       'height': large_tile_size,
+                       'color': large_tile_colour,
+                       'type': 'tile'
+                       }
+
+              k += 1
+              config['obstacles'].append(tile)
+
+        #Small tiles
+        k = 0
+        for i in range(n_large_tiles_ver):
+           y = (i+1) * large_tile_size + (i + 1) * 2 * grout_size + i*small_tile_size
+           for j in range(n_large_tiles_horiz*3):
+             x = j*small_tile_size+(int(j/3)+1)*grout_size
+             if j%2 == 0:
+                colour = black_tile_colour
+             else:
+                colour = white_tile_colour
+
+             tile = {'name': 'st%d' % k,
+                     'x': int(x + small_tile_size / 2),
+                     'y': int(y + small_tile_size / 2),
+                     'width': small_tile_size,
+                     'height': small_tile_size,
+                     'color': colour,
+                     'type': 'tile'
+                     }
+
+             k += 1
+             config['obstacles'].append(tile)
+
+        x = config['robots'][0]['center_x']
+        x = x*(large_tile_size+grout_size)+large_tile_size/2
+        config['robots'][0]['center_x'] = int(x)
+
+        y = config['robots'][0]['center_y']
+        y = y*(large_tile_size+2*grout_size)+(y-1)*small_tile_size+large_tile_size/1.2
+        config['robots'][0]['center_y'] = int(y)
 
 
     world_state = WorldState(config)
-
-
-
-
     world_simulator = WorldSimulator(world_state)
 
     visualiser = Visualiser(world_simulator.update, world_state, show_fullscreen, show_maximized,

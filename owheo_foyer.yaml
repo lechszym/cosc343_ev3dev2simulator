@@ -8,6 +8,8 @@ robots:
     orientation: 0
     type: 'robot_cosc343.yaml'
 obstacles:
+  - name: 'tiles'
+    type: 'tiles'
   - name: 'target'
     tile: 12
     radius: 33

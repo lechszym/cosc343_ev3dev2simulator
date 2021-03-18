@@ -1,3 +1,5 @@
+This project is a fork off of https://github.com/ev3dev-python-tools/ev3dev2simulator with the support for the configuration for the Owheo foyer floor tile pattern and its noisy color sensor readings.
+
 # ev3dev2simulator: simulator for the EV3 (ev3dev2 API)
 
 The behaviour of the EV3 robot is simulated in the simulator. This is convenient to quickly test programs when you momentarily don’t have access to an EV3.
@@ -30,9 +32,17 @@ For more info about Thonny: http://thonny.org
    
       conda activate cosc343
 
-   Then you can just run the simulator by running the following script (remember, you must be in the root folder of the git repo):
+   Uninstall previous version of ev3dev2simulator
+
+      pip uninstall ev3dev2simulator
+      
+   Install the new version from the source code
    
-      python cosc343_a1_simulator.py -t owheo_foyer.yaml
+      python setup.py install 
+
+   Then you can run the simulator by running the following script
+   
+      ev3dev2simulator -t owheo_foyer.yaml
 
 ## Changing the location of the bottle/target
 
